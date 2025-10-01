@@ -25,12 +25,18 @@
             </div>
             {{-- Kolom 3: Media Sosial --}}
             <div>
-                <h3 class="font-bold text-lg mb-4">Ikuti Kami</h3>
-                <div class="flex space-x-4">
-                    <a href="#" class="text-gray-400 hover:text-sky-400"><i class="fab fa-facebook-f fa-lg"></i></a>
-                    <a href="#" class="text-gray-400 hover:text-sky-400"><i class="fab fa-instagram fa-lg"></i></a>
-                    <a href="#" class="text-gray-400 hover:text-sky-400"><i class="fab fa-youtube fa-lg"></i></a>
-                </div>
+                <h3 class="font-bold text-lg mb-4">Statistik Pengunjung</h3>
+                <ul class="space-y-2 text-gray-400 text-sm">
+                    <li>
+                        <span class="font-semibold">Hari Ini:</span> {{ number_format($dailyVisitors ?? 0) }}
+                    </li>
+                    <li>
+                        <span class="font-semibold">Minggu Ini:</span> {{ number_format($weeklyVisitors ?? 0) }}
+                    </li>
+                    <li>
+                        <span class="font-semibold">Total Kunjungan:</span> {{ number_format($totalVisitors ?? 0) }}
+                    </li>
+                </ul>
             </div>
         </div>
         <div class="mt-8 border-t border-gray-700 pt-6 text-center text-gray-500">

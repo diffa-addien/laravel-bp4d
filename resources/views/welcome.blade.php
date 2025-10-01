@@ -4,14 +4,14 @@
 @section('content')
 
 {{-- Hero Section --}}
-<section class="relative h-[60vh] md:h-screen bg-cover bg-center flex items-center justify-center text-white overflow-hidden" style="background-image: url('https://picsum.photos/1920/1080?grayscale&blur=2');">
+<section class="relative h-[60vh] md:h-screen bg-cover bg-center flex items-center justify-center text-white overflow-hidden" style="background-image: url('{{ $heroImageUrl ?? 'https://picsum.photos/1920/1080?grayscale&blur=2' }}');">
     <div class="absolute inset-0 bg-gradient-to-t from-gray-900 to-black/50"></div>
     <div class="relative z-10 text-center px-4">
         <h1 class="text-4xl md:text-6xl font-extrabold mb-4 leading-tight">
-            BP4D Halmahera Timur
+            {{ $settings['hero_title']->value ?? 'BP4D Halmahera Timur' }}
         </h1>
         <p class="text-lg md:text-xl font-light text-gray-200">
-            Mewujudkan Perencanaan Pembangunan Daerah yang Berkualitas, Inovatif, dan Berkelanjutan.
+            {{ $settings['hero_subtitle']->value ?? 'Mewujudkan Perencanaan Pembangunan...' }}
         </p>
     </div>
 
