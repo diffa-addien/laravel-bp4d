@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\Visitor;
+use App\Models\Halaman; 
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -21,6 +22,11 @@ class ViewServiceProvider extends ServiceProvider
                 'weeklyVisitors' => $weeklyVisitors,
                 'totalVisitors' => $totalVisitors,
             ]);
+        });
+
+        View::composer('layouts.navbar', function ($view) {
+            $profilPages = Halaman::where('kategori', 'profil')->get();
+            $view->with('profilPages', $profilPages);
         });
     }
 }

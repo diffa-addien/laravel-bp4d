@@ -24,42 +24,58 @@
 </section>
 
 {{-- Berita Terbaru Section (background now matches shape divider) --}}
-<section class="py-16 md:py-24 bg-gray-100"> {{-- Ubah bg-white menjadi bg-gray-100 agar sesuai warna shape divider --}}
+<section class="py-16 md:py-24 bg-gray-100">
     <div class="max-w-screen-xl mx-auto px-4">
         <div class="text-center mb-12">
             <h2 class="text-3xl md:text-4xl font-bold">Berita Terbaru</h2>
             <p class="text-gray-600 mt-2">Informasi dan kegiatan terkini dari BP4D Halmahera Timur.</p>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {{-- Dummy Berita Card 1 --}}
-            <div class="bg-white rounded-lg shadow-md overflow-hidden group">
-                <img src="https://picsum.photos/seed/news1/600/400" alt="Gambar Berita" class="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105">
-                <div class="p-6">
-                    <span class="text-sm text-gray-500">25 September 2025</span>
-                    <h3 class="font-bold text-xl mt-2 mb-3 hover:text-sky-600 cursor-pointer">Musrenbang RKPD Tahun 2026</h3>
-                    <p class="text-gray-600 text-sm leading-relaxed">BP4D berhasil menyelenggarakan Musyawarah Perencanaan Pembangunan (Musrenbang) Rencana Kerja...</p>
+            @forelse($latestBeritas as $berita)
+                <div class="bg-white rounded-lg shadow-md overflow-hidden group">
+                    <a href="{{ route('berita.show', $berita) }}">
+                        <img src="{{ $berita->getFirstMediaUrl('berita_images') ?: 'https://picsum.photos/seed/news1/600/400' }}" alt="Gambar Berita" class="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105">
+                    </a>
+                    <div class="p-6">
+                        <span class="text-sm text-gray-500">{{ $berita->created_at->translatedFormat('d F Y') }}</span>
+                        <h3 class="font-bold text-xl mt-2 mb-3">
+                            <a href="{{ route('berita.show', $berita) }}" class="hover:text-sky-600">{{ $berita->judul }}</a>
+                        </h3>
+                        <p class="text-gray-600 text-sm leading-relaxed">
+                            {{ Str::limit(strip_tags($berita->isi), 100) }}
+                        </p>
+                    </div>
                 </div>
+            @empty
+                <p class="col-span-3 text-center text-gray-500">Belum ada berita yang dipublikasikan.</p>
+            @endforelse
+        </div>
+        <div class="text-center mt-12">
+            <a href="{{ route('berita.index') }}" class="px-6 py-3 bg-sky-600 text-white font-semibold rounded-lg shadow-md hover:bg-sky-700 transition-colors">Lihat Semua Berita</a>
+        </div>
+    </div>
+</section>
+
+@if($latestAgenda)
+<section class="py-16 md:py-24 bg-gray-800 text-white">
+    <div class="max-w-screen-xl mx-auto px-4 text-center">
+        <h2 class="text-3xl md:text-4xl font-bold mb-10">Agenda Terbaru</h2>
+
+        <div class="bg-gray-900 rounded-lg shadow-lg p-8 max-w-4xl mx-auto text-left flex flex-col md:flex-row items-center gap-8">
+            <div class="text-center">
+                <div class="text-5xl font-bold text-sky-400">{{ $latestAgenda->tanggal->format('d') }}</div>
+                <div class="text-xl font-semibold">{{ $latestAgenda->tanggal->translatedFormat('F Y') }}</div>
             </div>
-            {{-- Dummy Berita Card 2 --}}
-            <div class="bg-white rounded-lg shadow-md overflow-hidden group">
-                <img src="https://picsum.photos/seed/news2/600/400" alt="Gambar Berita" class="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105">
-                <div class="p-6">
-                    <span class="text-sm text-gray-500">22 September 2025</span>
-                    <h3 class="font-bold text-xl mt-2 mb-3 hover:text-sky-600 cursor-pointer">Forum Konsultasi Publik Rancangan Awal</h3>
-                    <p class="text-gray-600 text-sm leading-relaxed">Dalam rangka penyempurnaan rancangan awal, BP4D mengundang seluruh elemen masyarakat untuk...</p>
-                </div>
-            </div>
-            {{-- Dummy Berita Card 3 --}}
-            <div class="bg-white rounded-lg shadow-md overflow-hidden group">
-                <img src="https://picsum.photos/seed/news3/600/400" alt="Gambar Berita" class="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105">
-                <div class="p-6">
-                    <span class="text-sm text-gray-500">18 September 2025</span>
-                    <h3 class="font-bold text-xl mt-2 mb-3 hover:text-sky-600 cursor-pointer">Pelatihan Inovasi Daerah untuk ASN</h3>
-                    <p class="text-gray-600 text-sm leading-relaxed">Peningkatan kapasitas aparatur sipil negara menjadi fokus utama dalam pelatihan inovasi daerah...</p>
-                </div>
+            <div class="border-l border-gray-700 pl-8 flex-grow">
+                <h3 class="font-bold text-2xl mb-2">{{ $latestAgenda->judul }}</h3>
+                <p class="text-gray-400 mb-4"><i class="fa-solid fa-location-dot mr-2"></i>{{ $latestAgenda->lokasi }}</p>
+                <a href="{{ route('agenda.show', $latestAgenda) }}" class="inline-block text-sky-400 font-semibold hover:text-sky-300">
+                    Lihat Detail <i class="fa-solid fa-arrow-right fa-xs ml-1"></i>
+                </a>
             </div>
         </div>
     </div>
 </section>
+@endif
 
 @endsection
