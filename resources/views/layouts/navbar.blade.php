@@ -3,7 +3,7 @@
     class="bg-gray-900 bg-opacity-80 backdrop-blur-sm fixed w-full z-20 top-0 start-0 border-b border-gray-700">
     <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Lambang_Kabupaten_Halmahera_Timur.png/120px-Lambang_Kabupaten_Halmahera_Timur.png"
+            <img src="{{ asset('assets/logo_haltim.png') }}"
                 class="h-10" alt="Logo BP4D">
             <div class="text-white text-sm">
                 <span class="font-bold block leading-tight">BP4D</span>
